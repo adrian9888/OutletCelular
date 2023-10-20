@@ -1,0 +1,57 @@
+﻿@model IEnumerable<OutletCelular.Models.Accesorio>
+
+@{
+    ViewData["Title"] = "Lista de Accesorios";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!-- Labels para Búsqueda -->
+<form asp-action="Index" method="get" class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Nombre" aria-label="Nombre" name="nombreBusqueda">
+    <input class="form-control mr-sm-2" type="search" placeholder="Marca" aria-label="Marca" name="marcaBusqueda">
+    <input class="form-control mr-sm-2" type="search" placeholder="Precio Mínimo" aria-label="PrecioMinimo" name="precioMinimo">
+    <input class="form-control mr-sm-2" type="search" placeholder="Precio Máximo" aria-label="PrecioMaximo" name="precioMaximo">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+</form>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-ordenamiento="@(ViewBag.NombreOrdenamiento ?? "nombre_asc")">@Html.DisplayNameFor(model => model.Nombre)</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marca)
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-ordenamiento="@(ViewBag.PrecioOrdenamiento ?? "precio_asc")">@Html.DisplayNameFor(model => model.Precio)</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
